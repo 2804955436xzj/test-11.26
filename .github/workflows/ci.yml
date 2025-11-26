@@ -1,14 +1,28 @@
-name: My First CI
+name: Auto Build
 
 on:
   push:
+    branches:
+      - main   # 推到 main 分支时自动执行
 
 jobs:
-  test:
+  build:
     runs-on: ubuntu-latest
 
     steps:
+      # 第 1 步：拉取你的仓库代码
       - uses: actions/checkout@v4
 
-      - name: 打印一句话
-        run: echo "CI 在跑啦！！"
+      # 第 2 步：选择 Node.js 版本
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: 'npm'   # 自动缓存，加速构建
+
+      # 第 3 步：安装依赖
+      - name: Install
+        run: npm install
+
+      # 第 4 步：构建项目
+      - name: Build
+        run: npm run build
