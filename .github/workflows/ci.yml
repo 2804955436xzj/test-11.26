@@ -1,0 +1,14 @@
+name: My First CI
+
+on:
+  push:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 打印一句话
+        run: echo "CI 在跑啦！！"
