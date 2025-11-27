@@ -12,16 +12,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # 安装 Node.js（版本你自己定，这里用 20）
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm'
 
-      # 安装依赖
-      - name: Install dependencies
+      - name: Install
         run: npm install
 
-      # 构建项目
       - name: Build
         run: npm run build
