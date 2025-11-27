@@ -12,26 +12,27 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # 1. Node.js 20（pnpm 10 的最佳版本）
+      # Node 20（pnpm 10 推荐）
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: pnpm
+          cache: 'pnpm'
 
-      # 2. 安装 pnpm 10.x
+      # 安装 pnpm（⭐ add-to-path 必须为 true）
       - uses: pnpm/action-setup@v4
         with:
           version: 10
           run_install: false
+          add_to_path: true
 
-      # 3. 添加 pnpm 到 PATH
-      - name: Add pnpm to PATH
-        run: echo "${HOME}/.local/share/pnpm" >> $GITHUB_PATH
+      # 调试：看看 pnpm 有没有装好
+      - name: Check pnpm
+        run: |
+          which pnpm
+          pnpm --version
 
-      # 4. 安装依赖
-      - name: Install dependencies
+      - name: Install
         run: pnpm install
 
-      # 5. 构建
       - name: Build
         run: pnpm build
