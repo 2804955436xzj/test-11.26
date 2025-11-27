@@ -12,27 +12,16 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # Node 20（pnpm 10 推荐）
+      # 安装 Node.js（版本你自己定，这里用 20）
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'pnpm'
+          cache: 'npm'
 
-      # 安装 pnpm（⭐ add-to-path 必须为 true）
-      - uses: pnpm/action-setup@v4
-        with:
-          version: 10
-          run_install: false
-          add_to_path: true
+      # 安装依赖
+      - name: Install dependencies
+        run: npm install
 
-      # 调试：看看 pnpm 有没有装好
-      - name: Check pnpm
-        run: |
-          which pnpm
-          pnpm --version
-
-      - name: Install
-        run: pnpm install
-
+      # 构建项目
       - name: Build
-        run: pnpm build
+        run: npm run build
